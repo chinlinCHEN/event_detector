@@ -13,12 +13,12 @@ To install the AN environment for Python scripts, please refer the installation 
 
 ## Event detection cirteria
 ### Parameters:
-1. kinx_factor: -k; determine the starting of an event and avoiding from the steepest point. It is more physiological and inspired from action potential kinx. 
-2. shortest_evt_dur (sec): -sd; the criteria to filter out too short event
-3. longest_evt_dur (sec): -ld; the range of the event
-4. raw_thrsld: -r; the criteria on amplitude of the normalized trace to filter out false-detective fluctuation.
-5. diff_thrsld: -d; the criteria on differentiated amplitude of the normalized trace to filter out false-detective fluctuation.
-6. diff_window (sec): -dw; the interval of differentiation, which will affect the amplitude of differentiated trace.
+1. kinx_factor: ```-k```; determine the starting of an event and avoiding from the steepest point. It is more physiological and inspired from action potential kinx. 
+2. shortest_evt_dur (sec): ```-sd```; the criteria to filter out too short event
+3. longest_evt_dur (sec): ```-ld```; the range of the event
+4. raw_thrsld: ```-r```; the criteria on amplitude of the normalized trace to filter out false-detective fluctuation.
+5. diff_thrsld: ```-d```; the criteria on differentiated amplitude of the normalized trace to filter out false-detective fluctuation.
+6. diff_window (sec): ```-dw```; the interval of differentiation, which will affect the amplitude of differentiated trace.
 
 <p align="left">
   <img align="center" width="780" src="/images/event_detection_diagram.png">
