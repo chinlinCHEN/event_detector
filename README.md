@@ -20,6 +20,9 @@ To install the AN environment for Python scripts, please refer the installation 
 5. diff_thrsld: -d; the criteria on differentiated amplitude of the normalized trace to filter out false-detective fluctuation.
 6. diff_window (sec): -dw; the interval of differentiation, which will affect the amplitude of differentiated trace.
 
+<p align="left">
+  <img align="center" width="780" src="/images/event_detection_diagram.png">
+</p>
 
 todo: insert an diagram to explain the parameters here.
 
@@ -41,6 +44,10 @@ todo: next version in command line style
 3. The binary trace indicated the event period.
 <p align="left">
   <img align="center" width="780" src="/output_events/evt.png">
+</p>
+
+<p align="left">
+  <img align="center" width="780" src="/output_events/event_overlay.png">
 </p>
 
 
