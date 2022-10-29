@@ -13,7 +13,7 @@ To install the AN environment for Python scripts, please refer the installation 
 
 ## Event detection cirteria
 ### Parameters:
-1. kinx_factor: determine the starting of an event and avoiding from the steepest point. It is more physiological and inspired from action potential kinx. 
+1. kink_factor: determine the starting of an event and avoiding from the steepest point. It is more physiological and inspired from action potential . 
 2. shortest_evt_dur (sec): the criteria to filter out too short event
 3. longest_evt_dur (sec): the range of the event, not a criteria
 4. raw_thrsld: the criteria on amplitude of the normalized trace to filter out false-detective fluctuation.
