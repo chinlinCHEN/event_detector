@@ -29,9 +29,9 @@ todo: insert an diagram to explain the parameters here.
 
 ## Usage
 ### Input data structure
-A input ```.csv``` file must contain:
-1. Datapoints at each time tag
-2. Total time (sec).
+An input ```.csv``` file must contain two columns:
+1. ```values```: Datapoints at each time tag
+2. ```time```: Time tags (sec).
 
 todo: next version in command line style
 
