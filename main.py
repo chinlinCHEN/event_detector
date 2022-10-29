@@ -19,7 +19,7 @@ import utils.plot_utils as plot_utils
 
 
 detect_params={}
-detect_params.update({'kinx_factor':0.4})
+detect_params.update({'kink_factor':0.4})
 detect_params.update({'shortest_evt_dur':0.5})
 detect_params.update({'longest_evt_dur':2})
 detect_params.update({'raw_thrsld':0.55})
@@ -108,7 +108,7 @@ norm_range_smth_GC_trace ,_ ,_ = EventDetection_utils.normalize_trace(smth_trace
 
 
 evt_bin_trace, evt_startIdx_list, evt_endIdx_list = EventDetection_utils.detect_event(norm_range_smth_GC_trace, output_dir, 'evt.png', fps=samplingFreq, \
-kinx_factor=detect_params['kinx_factor'], \
+kink_factor=detect_params['kink_factor'], \
 evt_shortest_dur=detect_params['shortest_evt_dur'], \
 evt_longest_dur=detect_params['longest_evt_dur'], \
 raw_thrsld=detect_params['raw_thrsld'], \

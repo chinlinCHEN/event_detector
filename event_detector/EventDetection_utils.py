@@ -15,7 +15,7 @@ from skimage import io
 
 
 
-def detect_event(trace, save_dir, filename, fps=30, evt_shortest_dur=0.27, evt_longest_dur=2, diff_window=0.3, raw_thrsld=0.2, diff_thrsld=0.03, kinx_factor=0.2, raw_change_thrsld=0.1, find_peak_distance=0.8, kinx_search_range=0.4, select_specific_dur_evt=False):
+def detect_event(trace, save_dir, filename, fps=30, evt_shortest_dur=0.27, evt_longest_dur=2, diff_window=0.3, raw_thrsld=0.2, diff_thrsld=0.03, kink_factor=0.2, raw_change_thrsld=0.1, find_peak_distance=0.8, kinx_search_range=0.4, select_specific_dur_evt=False):
 
 	print('Detecting events...')
 
@@ -47,12 +47,12 @@ def detect_event(trace, save_dir, filename, fps=30, evt_shortest_dur=0.27, evt_l
 	# peaks_idx_gradTrace_cwt_on_gradTrace = np.array(grad_trace)[peaks_idx_gradTrace_cwt]
 
 	## Find start kinx of event
-	kinx_idx_rawTrace=detect_kinx(grad_trace, peaks_idx_gradTrace, mode='forward', fps=fps, kinx_factor=kinx_factor, srch_range=kinx_search_range)
+	kinx_idx_rawTrace=detect_kinx(grad_trace, peaks_idx_gradTrace, mode='forward', fps=fps, kink_factor=kink_factor, srch_range=kinx_search_range)
 	print('kinx_idx_rawTrace', kinx_idx_rawTrace)
 	#print('trace[kinx_idx_rawTrace[-1]]', trace[kinx_idx_rawTrace[-1]])
 
 	## Backward find nearest point of kinx as for the end of the event
-	end_idx_rawTrace=detect_kinx(trace, kinx_idx_rawTrace, mode='backward', fps=fps, kinx_factor=kinx_factor, srch_range=evt_longest_dur, no_after_these_idx=kinx_idx_rawTrace, height_cond=peaks_of_gradTrace_on_rawTrace)
+	end_idx_rawTrace=detect_kinx(trace, kinx_idx_rawTrace, mode='backward', fps=fps, kink_factor=kink_factor, srch_range=evt_longest_dur, no_after_these_idx=kinx_idx_rawTrace, height_cond=peaks_of_gradTrace_on_rawTrace)
 	print('end_idx_rawTrace', end_idx_rawTrace)
 
 	# print('kinx_idx_rawTrace', kinx_idx_rawTrace)
@@ -247,7 +247,7 @@ def normalize_trace(trace, frame_window=100, mode=None, max_val_manual=None):
 
 
 
-def detect_kinx(trace, peaks_idx, mode='forward', srch_range=0.4, kinx_factor=0.2, fps=30, no_after_these_idx=None, height_cond=None):
+def detect_kinx(trace, peaks_idx, mode='forward', srch_range=0.4, kink_factor=0.2, fps=30, no_after_these_idx=None, height_cond=None):
 
 	print('\n'+mode+' detecting ...\n')
 
@@ -262,7 +262,7 @@ def detect_kinx(trace, peaks_idx, mode='forward', srch_range=0.4, kinx_factor=0.
 
 	for i, peak_idx in enumerate(peaks_idx):
 
-		ajst_thrsld = trace[peak_idx]*kinx_factor
+		ajst_thrsld = trace[peak_idx]*kink_factor
 		print('ajst_thrsld', ajst_thrsld)
 
 		if mode=='forward':
