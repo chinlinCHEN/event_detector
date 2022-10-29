@@ -13,15 +13,15 @@ To install the AN environment for Python scripts, please refer the installation 
 
 ## Event detection cirteria
 ### Parameters:
-1. kinx_factor: ```-k```; determine the starting of an event and avoiding from the steepest point. It is more physiological and inspired from action potential kinx. 
-2. shortest_evt_dur (sec): ```-sd```; the criteria to filter out too short event
-3. longest_evt_dur (sec): ```-ld```; the range of the event
-4. raw_thrsld: ```-r```; the criteria on amplitude of the normalized trace to filter out false-detective fluctuation.
-5. diff_thrsld: ```-d```; the criteria on differentiated amplitude of the normalized trace to filter out false-detective fluctuation.
-6. diff_window (sec): ```-dw```; the interval of differentiation, which will affect the amplitude of differentiated trace.
+1. kinx_factor: determine the starting of an event and avoiding from the steepest point. It is more physiological and inspired from action potential kinx. 
+2. shortest_evt_dur (sec): the criteria to filter out too short event
+3. longest_evt_dur (sec): the range of the event, not a criteria
+4. raw_thrsld: the criteria on amplitude of the normalized trace to filter out false-detective fluctuation.
+5. diff_thrsld: the criteria on differentiated amplitude of the normalized trace to filter out false-detective fluctuation.
+6. diff_window (sec): the interval of differentiation, which will affect the amplitude of differentiated trace.
 
 <p align="left">
-  <img align="center" width="780" src="/images/event_detection_diagram.png">
+  <img align="center" width="780" src="/images/event_detection_criteriaDiagram.png">
 </p>
 
 todo: insert an diagram to explain the parameters here.
@@ -35,20 +35,35 @@ A input ```.csv``` file must contain:
 
 todo: next version in command line style
 
+### Set criteria
+
+In the ```main.py```, enter the parameters to a dictionary:
+```
+detect_params.update({'kink_factor':0.4})
+detect_params.update({'shortest_evt_dur':0.5})
+detect_params.update({'longest_evt_dur':2})
+detect_params.update({'raw_thrsld':0.55})
+detect_params.update({'diff_thrsld':0.2})
+detect_params.update({'diff_window':0.3})
+```
 
 
 ### Output files
-#### A plot of detected event (```evt.png```)
+#### A plot of detected event (```evt.png``` and ```event_overlay.png```)
 1. The raw trace with detected event epochs (gray box) and starting (blue arrow head) and ending (red arrow head) timepoint.
 2. The differentiated trace with detected event epochs (gray box) and starting point as peak*kink_factor (blue arrow head) and the differentiated peak (green arrow head).
 3. The binary trace indicated the event period.
 <p align="left">
-  <img align="center" width="780" src="/output_events/evt.png">
+  <img align="middle" width="1000" src="/output_events/evt.png">
 </p>
 
+#### [Optional] Extended application: Plot overlaid events
+1. The detected event can be extended with baseline period to align the event to the initiation time.
 <p align="left">
-  <img align="center" width="780" src="/output_events/event_overlay.png">
+  <img align="middle" width="300" src="/output_events/event_overlay.png">
 </p>
+
+
 
 
 #### The detection resutls in dictionary format (```detected_events.pkl```)
