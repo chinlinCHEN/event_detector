@@ -13,7 +13,7 @@ To install the AN environment for Python scripts, please refer the installation 
 
 ## Event detection cirteria
 ### Parameters:
-1. ```kink_factor```: ```-k```; determine the starting of an event and avoiding from the steepest point. It is more physiological and inspired from action potential . 
+1. ```kink_factor```: ```-k```; determine the starting of an event and avoiding from the steepest point which is not as accurate as the onset of the activity. This approach is more physiological and inspired from action potential kink. 
 2. ```raw_thrsld```: ```-r```; the criteria on amplitude of the normalized trace to filter out false-detective fluctuation.
 3. ```diff_thrsld```: ```-d```; the criteria on differentiated amplitude of the normalized trace to filter out false-detective fluctuation.
 4. ```shortest_evt_dur``` (sec): ```-sd```; the criteria to filter out too short event
