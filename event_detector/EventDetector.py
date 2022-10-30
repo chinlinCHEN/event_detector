@@ -33,9 +33,8 @@ def detect_event(trace, save_dir, filename, fps=30, evt_shortest_dur=0.27, evt_l
 
 	peaks_idx_rawTrace, _ = scipy.signal.find_peaks(trace, height = raw_thrsld, distance=find_peak_distance)
 	peaks_idx_gradTrace, _ = scipy.signal.find_peaks(grad_trace, height = diff_thrsld, distance=find_peak_distance)
-	#peaks_idx_gradTrace_cwt = scipy.signal.find_peaks_cwt(grad_trace, np.arange(1,20), max_distances=np.arange(1, 30)*2)
-	#print('peaks_idx', peaks_idx)
-	print('peaks_idx_gradTrace', peaks_idx_gradTrace)
+
+	# print('peaks_idx_gradTrace', peaks_idx_gradTrace)
 	
 
 	peaks_of_rawTrace_on_rawTrace = np.array(trace)[peaks_idx_rawTrace]
@@ -78,7 +77,8 @@ def detect_event(trace, save_dir, filename, fps=30, evt_shortest_dur=0.27, evt_l
 		sys.exit(0)
 
 	else:
-		print('startIdx_rawTrace numbers is equal to endIdx_rawTrace')
+		print('-->startIdx_rawTrace numbers is equal to endIdx_rawTrace')
+		print('-->In total,', len(startIdx_rawTrace), 'events are detected.')
 
 
 
@@ -144,6 +144,8 @@ def detect_event(trace, save_dir, filename, fps=30, evt_shortest_dur=0.27, evt_l
 		plt.clf()
 		plt.close(fig)
 
+		print('Done.')
+
 
 
 
@@ -206,10 +208,10 @@ def normalize_trace(trace, frame_window=100, mode=None, max_val_manual=None):
 
 
 
-		print('baseline', baseline)
+		# print('baseline', baseline)
 
 		range_trace=max_val-baseline
-		print('range_trace', range_trace)
+		# print('range_trace', range_trace)
 		
 		# plt.plot(smth_trace)
 		# plt.show()
@@ -252,8 +254,10 @@ def detect_kinx(trace, peaks_idx, mode='forward', srch_range=0.4, kink_factor=0.
 	print('\n'+mode+' detecting ...\n')
 
 	data_samplerate=fps
-	print('peaks_idx', peaks_idx)
-	print('data_samplerate*srch_range', data_samplerate*srch_range)
+	# print('peaks_idx', peaks_idx)
+	print('data_samplerate', data_samplerate)
+	print('srch_range (s)', srch_range)
+	print('srch_length', data_samplerate*srch_range)
 
 	evt_kinx_idx_series=[]
 
@@ -263,7 +267,7 @@ def detect_kinx(trace, peaks_idx, mode='forward', srch_range=0.4, kink_factor=0.
 	for i, peak_idx in enumerate(peaks_idx):
 
 		ajst_thrsld = trace[peak_idx]*kink_factor
-		print('ajst_thrsld', ajst_thrsld)
+		# print('ajst_thrsld', ajst_thrsld)
 
 		if mode=='forward':
 			
@@ -295,7 +299,7 @@ def detect_kinx(trace, peaks_idx, mode='forward', srch_range=0.4, kink_factor=0.
 
 			height_cond_val=height_cond[i]*(0.7)
 
-			print('trace[peak_idx]', trace[peak_idx])
+			# print('trace[peak_idx]', trace[peak_idx])
 
 			# Not touch trace end
 			if int(peak_idx+data_samplerate*srch_range)<len(trace)-1:
@@ -310,7 +314,7 @@ def detect_kinx(trace, peaks_idx, mode='forward', srch_range=0.4, kink_factor=0.
 
 						nearest_value=find_nearest(trace[int(peak_idx):int(peak_idx+data_samplerate*srch_range)], trace[peak_idx], condition='over_max', height_cond=height_cond_val)
 						nearest_value_idx = np.where(trace[int(peak_idx):int(peak_idx+data_samplerate*srch_range)] == nearest_value)[0]
-						print('nearest_value_idx', nearest_value_idx)
+						# print('nearest_value_idx', nearest_value_idx)
 						
 						if len(nearest_value_idx)>1:
 							max_trace=max(trace[int(peak_idx):int(peak_idx+data_samplerate*srch_range)])
@@ -342,7 +346,7 @@ def detect_kinx(trace, peaks_idx, mode='forward', srch_range=0.4, kink_factor=0.
 					print('Evt# '+str(i)+' at frame# '+str(peak_idx)+': '+'Last start idx')		
 					nearest_value=find_nearest(trace[int(peak_idx):int(peak_idx+data_samplerate*srch_range)], trace[peak_idx], condition='over_max', height_cond=height_cond_val)
 					nearest_value_idx = np.where(trace[int(peak_idx):int(peak_idx+data_samplerate*srch_range)] == nearest_value)[0]
-					print('nearest_value_idx', nearest_value_idx)
+					# print('nearest_value_idx', nearest_value_idx)
 					if len(nearest_value_idx)>1:
 						max_trace=max(trace[int(peak_idx):int(peak_idx+data_samplerate*srch_range)])
 						idxs_max=np.where(trace[int(peak_idx):int(peak_idx+data_samplerate*srch_range)]==max_trace)[0]
@@ -400,11 +404,11 @@ def detect_kinx(trace, peaks_idx, mode='forward', srch_range=0.4, kink_factor=0.
 
 		# print('ddata_series searching range:', int(peak_idx-data_samplerate*srch_range), int(peak_idx))
 		#print('nearest_value_idx', nearest_value_idx)
-		print('nearest_idx', nearest_idx)
+		# print('nearest_idx', nearest_idx)
 		evt_kinx_idx_series.append(nearest_idx)
 		evt_kinx_idx_series.sort()
 
-	print('evt_kinx_idx_series')
+	
 
 
 	return evt_kinx_idx_series
@@ -473,7 +477,7 @@ def find_nearest(ori_array, ori_value, condition=None, height_cond=None):
 
 						if np.sum(Similarity_with_value_thres)==0:
 							if max_idx==len(array)-1:
-								print('	max_idx')
+								# print('	max_idx')
 								idx=max_idx
 							else:
 								print('	all values < threshold...')

@@ -36,6 +36,8 @@ def Plot_traces(series_set=None, savepath=None):
 
 def plot_overlaid_events(events_2d_list, trend_trace, filepath, filename, bsl_s=1, samp_freq=1):
 
+	print('==Plotting overlaid events==')
+
 	events_2d_list=sorted(events_2d_list, key=len)
 
 	x_len=len(events_2d_list[-1])
@@ -44,7 +46,7 @@ def plot_overlaid_events(events_2d_list, trend_trace, filepath, filename, bsl_s=
 	
 	trace_dur=np.linspace(x_start, x_end, x_len)
 	
-	print('x_start', x_start, 'x_end', x_end)
+
 	
 
 	fig = plt.figure(facecolor='white', figsize=(5,5), dpi=170)
@@ -64,6 +66,8 @@ def plot_overlaid_events(events_2d_list, trend_trace, filepath, filename, bsl_s=
 
 	plt.clf
 	plt.close(fig)
+
+	print('Done.')
 
 	return
 
