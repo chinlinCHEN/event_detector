@@ -23,6 +23,8 @@ def main():
 
 	args=cli_utils.parse_cli_args()
 
+	print('args', args)
+
 	kink_factor=args.kink_factor
 	raw_thrsld=args.raw_thrsld
 	diff_thrsld=args.diff_thrsld
