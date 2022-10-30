@@ -13,12 +13,12 @@ To install the AN environment for Python scripts, please refer the installation 
 
 ## Event detection cirteria
 ### Parameters:
-1. ```kink_factor```: determine the starting of an event and avoiding from the steepest point. It is more physiological and inspired from action potential . 
-2. ```shortest_evt_dur``` (sec): the criteria to filter out too short event
-3. ```longest_evt_dur``` (sec): the range of the event. Not a criteria
-4. ```raw_thrsld```: the criteria on amplitude of the normalized trace to filter out false-detective fluctuation.
-5. ```diff_thrsld```: the criteria on differentiated amplitude of the normalized trace to filter out false-detective fluctuation.
-6. ```diff_window``` (sec): the interval of differentiation, which will affect the amplitude of differentiated trace.
+1. ```kink_factor```: ```-k```; determine the starting of an event and avoiding from the steepest point. It is more physiological and inspired from action potential . 
+2. ```raw_thrsld```: ```-r```; the criteria on amplitude of the normalized trace to filter out false-detective fluctuation.
+3. ```diff_thrsld```: ```-d```; the criteria on differentiated amplitude of the normalized trace to filter out false-detective fluctuation.
+4. ```shortest_evt_dur``` (sec): ```-sd```; the criteria to filter out too short event
+5. ```longest_evt_dur``` (sec): ```-ld```; the range of the event. Not a criteria
+6. ```diff_window``` (sec): ```-i```; the interval of differentiation, which will affect the amplitude of differentiated trace.
 
 <p align="left">
   <img align="center" width="360" src="/images/event_detection_criteriaDiagram.png">
@@ -33,18 +33,52 @@ An input ```.csv``` file must contain two columns:
 1. ```values```: Datapoints at each time tag
 2. ```time```: Time tags (sec).
 
-todo: next version in command line style
 
 ### Set criteria
-
-In the ```main.py```, enter the parameters to a dictionary:
+Criteria can be set in command-line interface:
 ```
-detect_params.update({'kink_factor':0.4})
-detect_params.update({'shortest_evt_dur':0.5})
-detect_params.update({'longest_evt_dur':2})
-detect_params.update({'raw_thrsld':0.55})
-detect_params.update({'diff_thrsld':0.2})
-detect_params.update({'diff_window':0.3})
+python main.py -k 0.4 -i 0.3 -r 0.55 -d 0.2 -sd 0.5 -ld 2 -input ./data/trial001_0.csv -output ./output_events/ -plot_overlay True
+```
+```
+usage: main.py [-h] [-k kink factor] [-i interval for differentiation]
+               [-r threshold on raw value]
+               [-d threshold on differentiated value]
+               [-sd shortest event duration] [-ld longest event duration]
+               [-input input file] [-output output directory]
+               [-plot_overlay plot overlaid events]
+
+event detector
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -k kink factor, --kink_factor kink factor
+                        It is coefficient (usually between 0 and 1) to decides
+                        the event initiating point (local maximum change is
+                        not a physiologically starting timing). Default = 0.4.
+  -i interval for differentiation, --diff_window interval for differentiation
+                        The time interval (s) for differentiating the trace.
+                        It would affect the decision of diff_thrsld. Default =
+                        0.3.
+  -r threshold on raw value, --raw_thrsld threshold on raw value
+                        An event detection criteria. The normalized amplitude
+                        of an event should higher than this. Default = 0.55.
+  -d threshold on differentiated value, --diff_thrsld threshold on differentiated value
+                        An event detection criteria. The differentiated
+                        normalized amplitude of an event should higher than
+                        this. The choice of number can be affected by
+                        diff_window. Default = 0.2.
+  -sd shortest event duration, --shortest_evt_dur shortest event duration
+                        An event detection criteria. The duration of an event
+                        should longer than this (s). Default = 0.5.
+  -ld longest event duration, --longest_evt_dur longest event duration
+                        Not an event detection criteria. The duration of an
+                        event (s). Default = 2.
+  -input input file     input directory + filename.csv
+  -output output directory
+                        output directory
+  -plot_overlay plot overlaid events
+                        an optional plot of overlaid detected events. Default
+                        = True.
 ```
 
 
@@ -64,7 +98,7 @@ detect_params.update({'diff_window':0.3})
 </p>
 
 #### [Optional] Extended application: Plot overlaid events
-1. The detected event can be extended with baseline period to align the event to the initiation time.
+The detected event can be extended with baseline period to align the event to the initiation time.
 <p align="left">
   <img align="middle" width="300" src="/output_events/event_overlay.png">
 </p>
