@@ -39,6 +39,12 @@ Criteria can be set in command-line interface:
 ```
 python main.py -k 0.4 -i 0.3 -r 0.55 -d 0.2 -sd 0.5 -ld 2 -input ./data/trial001_0.csv -output ./output_events/ -plot_overlay True
 ```
+
+Check the explanation of the usage:
+```
+python main.py -h
+```
+
 ```
 usage: main.py [-h] [-k kink factor] [-i interval for differentiation]
                [-r threshold on raw value]
@@ -97,7 +103,7 @@ optional arguments:
   <img align="middle" width="1000" src="/output_events/evt.png">
 </p>
 
-#### [Optional] Extended application: Plot overlaid events
+#### [Optional] Extended application: Plot overlaid events (```event_overlay.png```)
 The detected event can be extended with baseline period to align the event to the initiation time.
 <p align="left">
   <img align="middle" width="300" src="/output_events/event_overlay.png">
